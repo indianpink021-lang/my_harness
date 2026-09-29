@@ -1,0 +1,34 @@
+[
+  { "rule": "G1-refs-min", "ops": [{ "file": "s1/01-references.json", "op": "slice", "n": 4 }] },
+  { "rule": "G1-refs-url", "ops": [{ "file": "s1/01-references.json", "op": "del_key", "index": 4, "key": "ui_url" }] },
+  { "rule": "G1-sections", "ops": [{ "file": "s2/02-analysis.md", "op": "replace", "old": "## 근거", "new": "## 참고" }] },
+  { "rule": "G1-adopt-min", "ops": [{ "file": "s2/02-analysis.md", "op": "replace", "old": "- 빈 상태에 새 자산 등록 CTA — https://uibowl.io/fixture/1003\n", "new": "" }] },
+  { "rule": "G1-no-invented-url", "ops": [{ "file": "s2/02-analysis.md", "op": "replace", "old": "https://uibowl.io/fixture/1002", "new": "https://uibowl.io/fixture/9999" }] },
+
+  { "rule": "G2-sections", "ops": [{ "file": "s3/03-screen-spec.md", "op": "replace", "old": "## 상태\n", "new": "## 상태값\n" }] },
+  { "rule": "G2-roles", "screen": "home", "ops": [{ "file": "s3/03-screen-spec.md", "op": "replace", "old": "- 열람: paid, seller\n- default_visibility: private\n- sale_requested: seller", "new": "- 열람: 로그인 사용자" }] },
+  { "rule": "G2-components-min", "ops": [{ "file": "s3/03-screen-spec.md", "op": "replace", "old": "- 자산 카드 목록\n- 공개 범위 선택\n- 새 자산 등록 버튼", "new": "(미정)" }] },
+  { "rule": "G2-private-default", "ops": [{ "file": "s3/03-screen-spec.md", "op": "replace", "old": "default_visibility: private", "new": "default_visibility: member_only" }] },
+  { "rule": "G2-sale-seller-only", "ops": [{ "file": "s3/03-screen-spec.md", "op": "replace", "old": "sale_requested: seller", "new": "sale_requested: paid, seller" }] },
+
+  { "rule": "G3-approval", "ops": [{ "file": "s4/04-approval.md", "op": "replace", "old": "approved: yes", "new": "approved: no" }] },
+
+  { "rule": "D-color", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "title", "key": "fills", "value": ["#222222"] }] },
+  { "rule": "D-accent-max", "ops": [
+    { "file": "s5/05-figma-export.json", "op": "node_set", "node": "title", "key": "fills", "value": ["#0066ff"] },
+    { "file": "s5/05-figma-export.json", "op": "node_set", "node": "card", "key": "fills", "value": ["#0066ff"] }] },
+  { "rule": "D-accent-not-cta", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "cta", "key": "fills", "value": ["#0066ff"] }] },
+  { "rule": "D-radius", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "card", "key": "radius", "value": 20 }] },
+  { "rule": "D-shadow", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "card", "key": "shadows", "value": [{ "y": 4, "blur": 12, "color": "rgba(0,0,0,0.1)" }] }] },
+  { "rule": "D-font-family", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "title", "key": "font.family", "value": "Inter" }] },
+  { "rule": "D-font-weight", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "title", "key": "font.weight", "value": 500 }] },
+  { "rule": "D-font-size", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "title", "key": "font.size", "value": 26 }] },
+  { "rule": "D-letter-spacing", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "title", "key": "font.letterSpacing", "value": 0.5 }] },
+  { "rule": "D-uppercase", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "title", "key": "font.textCase", "value": "UPPER" }] },
+  { "rule": "D-spacing", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "card", "key": "padding", "value": 20 }] },
+  { "rule": "D-frame", "ops": [{ "file": "s5/05-figma-export.json", "op": "frame_set", "key": "height", "value": 900 }] },
+  { "rule": "D-columns", "ops": [{ "file": "s5/05-figma-export.json", "op": "frame_set", "key": "columns", "value": 3 }] },
+  { "rule": "D-input-border", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "search", "key": "strokes", "value": ["#e0e0e0"] }] },
+  { "rule": "S-private-default", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "visibility", "key": "default_value", "value": "멤버 공개" }] },
+  { "rule": "S-no-pii", "ops": [{ "file": "s5/05-figma-export.json", "op": "node_set", "node": "card", "key": "text", "value": "문의: hong@example.com" }] }
+]

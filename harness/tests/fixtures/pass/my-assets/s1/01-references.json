@@ -1,0 +1,7 @@
+[
+  { "app": "fixture-app-a", "ui_url": "https://uibowl.io/fixture/1001", "screen_type": "내 콘텐츠 목록", "note": "selftest용 가상 레퍼런스" },
+  { "app": "fixture-app-b", "ui_url": "https://uibowl.io/fixture/1002", "screen_type": "공개 범위 설정", "note": "selftest용 가상 레퍼런스" },
+  { "app": "fixture-app-c", "ui_url": "https://uibowl.io/fixture/1003", "screen_type": "빈 상태", "note": "selftest용 가상 레퍼런스" },
+  { "app": "fixture-app-d", "ui_url": "https://uibowl.io/fixture/1004", "screen_type": "상태 배지", "note": "selftest용 가상 레퍼런스" },
+  { "app": "fixture-app-e", "ui_url": "https://uibowl.io/fixture/1005", "screen_type": "등록 폼", "note": "selftest용 가상 레퍼런스" }
+]

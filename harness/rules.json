@@ -1,0 +1,333 @@
+{
+  "version": 1,
+  "screens": {
+    "홈": "home",
+    "무료 학습자료": "free-content",
+    "유료 멤버 자료실": "member-library",
+    "스킬 라이브러리": "skill-library",
+    "미션 상세": "mission-detail",
+    "제출 화면": "submission",
+    "내 학습": "my-learning",
+    "내 자산": "my-assets",
+    "자산 상세": "asset-detail",
+    "운영자 검수 화면": "admin-review"
+  },
+  "files": {
+    "name_pattern": "^0[1-5]-[a-z-]+\\.(json|md)$",
+    "backup_pattern": "^0[1-5]-[a-z-]+\\.v[0-9]+\\.(json|md)$"
+  },
+  "retry": {
+    "max_per_stage": 2
+  },
+  "gates": {
+    "G1": [
+      {
+        "id": "G1-refs-min",
+        "file": "s1/01-references.json",
+        "check": "count_items",
+        "op": ">=",
+        "value": 5,
+        "source": "r0-context.md#레퍼런스 수집 규칙"
+      },
+      {
+        "id": "G1-refs-url",
+        "file": "s1/01-references.json",
+        "check": "all_have_field",
+        "field": "ui_url",
+        "source": "r0-context.md#레퍼런스 수집 규칙"
+      },
+      {
+        "id": "G1-sections",
+        "file": "s2/02-analysis.md",
+        "check": "has_sections",
+        "sections": [
+          "반영할 것",
+          "반영하지 않을 것",
+          "근거"
+        ],
+        "source": "r3-pipeline.md#입출력"
+      },
+      {
+        "id": "G1-adopt-min",
+        "file": "s2/02-analysis.md",
+        "check": "count_items_in_section",
+        "section": "반영할 것",
+        "op": ">=",
+        "value": 3,
+        "source": "r5-gates.md#G1"
+      },
+      {
+        "id": "G1-no-invented-url",
+        "file": "s2/02-analysis.md",
+        "check": "urls_subset_of",
+        "section": "반영할 것",
+        "of": "s1/01-references.json:ui_url",
+        "source": "r3-pipeline.md#입출력"
+      }
+    ],
+    "G2": [
+      {
+        "id": "G2-sections",
+        "file": "s3/03-screen-spec.md",
+        "check": "has_sections",
+        "sections": [
+          "목적",
+          "사용자",
+          "구성 요소",
+          "상태",
+          "권한"
+        ],
+        "source": "r3-pipeline.md#입출력"
+      },
+      {
+        "id": "G2-roles",
+        "file": "s3/03-screen-spec.md",
+        "check": "section_contains_any",
+        "section": "권한",
+        "values": [
+          "guest",
+          "free",
+          "paid",
+          "seller",
+          "admin"
+        ],
+        "source": "prd.md#8 User.role"
+      },
+      {
+        "id": "G2-components-min",
+        "file": "s3/03-screen-spec.md",
+        "check": "count_items_in_section",
+        "section": "구성 요소",
+        "op": ">=",
+        "value": 1,
+        "source": "r5-gates.md#G2"
+      },
+      {
+        "id": "G2-private-default",
+        "severity": "story-service",
+        "when_screen_in": [
+          "my-assets",
+          "asset-detail",
+          "submission"
+        ],
+        "file": "s3/03-screen-spec.md",
+        "check": "section_contains_line",
+        "section": "권한",
+        "line": "default_visibility: private",
+        "source": "story-service.md#어기면 안 되는 것 1"
+      },
+      {
+        "id": "G2-sale-seller-only",
+        "severity": "story-service",
+        "when_screen_in": [
+          "my-assets",
+          "asset-detail",
+          "submission"
+        ],
+        "file": "s3/03-screen-spec.md",
+        "check": "sale_requested_roles_equal",
+        "section": "권한",
+        "roles": [
+          "seller"
+        ],
+        "source": "story-service.md#어기면 안 되는 것 1 / prd.md#7-4"
+      }
+    ],
+    "G3": [
+      {
+        "id": "G3-approval",
+        "file": "s4/04-approval.md",
+        "check": "header_lines",
+        "lines": {
+          "approved": "^yes$",
+          "approver": ".+",
+          "date": "^\\d{4}-\\d{2}-\\d{2}$",
+          "figma_url": "^https://(www\\.)?figma\\.com/.+"
+        },
+        "human": true,
+        "source": "r4-artifacts.md#04-approval.md 형식 / r8-verification.md#Q1"
+      }
+    ],
+    "S5_input": "s5/05-figma-export.json",
+    "S5": [
+      {
+        "id": "D-color",
+        "check": "colors_in",
+        "values": [
+          "#141414",
+          "#262626",
+          "#ffffff",
+          "#f3f3f3",
+          "#f0f0f0",
+          "#e0e0e0",
+          "#707070",
+          "#adadad",
+          "#0066ff",
+          "rgba(115,115,115,0.56)"
+        ],
+        "source": "design.md#Colors (on-primary = #ffffff 확정)"
+      },
+      {
+        "id": "D-accent-max",
+        "check": "count_color_per_frame",
+        "color": "#0066ff",
+        "op": "<=",
+        "value": 2,
+        "source": "design.md#Do"
+      },
+      {
+        "id": "D-accent-not-cta",
+        "check": "count_color_on_component",
+        "color": "#0066ff",
+        "component": "button-primary",
+        "op": "==",
+        "value": 0,
+        "source": "design.md#Don't"
+      },
+      {
+        "id": "D-radius",
+        "check": "radius_in",
+        "values": [
+          0,
+          16,
+          24,
+          9999
+        ],
+        "except": {
+          "app-icon-squircle": "30%"
+        },
+        "source": "design.md#Border Radius Scale"
+      },
+      {
+        "id": "D-shadow",
+        "check": "count_shadows",
+        "op": "==",
+        "value": 0,
+        "except_components": [
+          "segmented-control-active"
+        ],
+        "source": "design.md#Don't (r0 충돌 해석)"
+      },
+      {
+        "id": "D-font-family",
+        "check": "font_family_in",
+        "values": [
+          "Pretendard",
+          "Pretendard Variable"
+        ],
+        "source": "design.md#Font Family"
+      },
+      {
+        "id": "D-font-weight",
+        "check": "font_weight_in",
+        "values": [
+          300,
+          400,
+          600,
+          700
+        ],
+        "source": "design.md#Font Family"
+      },
+      {
+        "id": "D-font-size",
+        "check": "font_size_in",
+        "values": [
+          32,
+          28,
+          24,
+          20,
+          18,
+          17,
+          15,
+          13,
+          12
+        ],
+        "source": "design.md#Hierarchy"
+      },
+      {
+        "id": "D-letter-spacing",
+        "check": "letter_spacing_equal",
+        "value": 0,
+        "source": "design.md#Don't"
+      },
+      {
+        "id": "D-uppercase",
+        "check": "count_text_case",
+        "case": "UPPER",
+        "op": "==",
+        "value": 0,
+        "source": "design.md#Don't (r0 충돌 해석)"
+      },
+      {
+        "id": "D-spacing",
+        "check": "spacing_in",
+        "values": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64
+        ],
+        "source": "design.md#Spacing System"
+      },
+      {
+        "id": "D-frame",
+        "check": "frame_size",
+        "width": 390,
+        "height": 844,
+        "source": "design.md#Screen Size"
+      },
+      {
+        "id": "D-columns",
+        "check": "max_columns",
+        "op": "<=",
+        "value": 2,
+        "source": "r0-context.md#design.md 충돌"
+      },
+      {
+        "id": "D-input-border",
+        "check": "count_border_on_component",
+        "component": "text-input",
+        "op": "==",
+        "value": 0,
+        "source": "design.md#Don't"
+      },
+      {
+        "id": "S-private-default",
+        "severity": "story-service",
+        "check": "component_default_value",
+        "component": "visibility-select",
+        "value": "비공개",
+        "source": "story-service.md#어기면 안 되는 것 1",
+        "required_when_screen_in": [
+          "my-assets",
+          "asset-detail",
+          "submission"
+        ]
+      },
+      {
+        "id": "S-no-pii",
+        "severity": "story-service",
+        "check": "text_regex_count",
+        "op": "==",
+        "value": 0,
+        "patterns": [
+          "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+          "01[0-9]-\\d{3,4}-\\d{4}",
+          "\\d{6}-[1-4]\\d{6}"
+        ],
+        "source": "story-service.md#어기면 안 되는 것 2"
+      }
+    ]
+  },
+  "on_fail": {
+    "G1": "S2 (G1-refs-* 실패면 S1)",
+    "G2": "S3",
+    "G3": "S4",
+    "S5.design": "S4",
+    "S5.story-service": "S3"
+  }
+}

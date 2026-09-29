@@ -1,0 +1,29 @@
+{
+  "frames": [
+    {
+      "name": "my-assets",
+      "width": 390,
+      "height": 844,
+      "columns": 1,
+      "nodes": [
+        { "name": "title", "component": "heading", "fills": ["#141414"], "strokes": [], "radius": null, "shadows": [], "gap": 0, "padding": 0,
+          "text": "내 자산", "font": { "family": "Pretendard", "weight": 700, "size": 28, "letterSpacing": 0, "textCase": "ORIGINAL" }, "default_value": null },
+        { "name": "cta", "component": "button-primary", "fills": ["#141414"], "strokes": [], "radius": 9999, "shadows": [], "gap": 0, "padding": [0, 16],
+          "text": "새 자산 등록", "font": { "family": "Pretendard", "weight": 600, "size": 15, "letterSpacing": 0, "textCase": "ORIGINAL" }, "default_value": null },
+        { "name": "search", "component": "text-input", "fills": ["#f0f0f0"], "strokes": [], "radius": 16, "shadows": [], "gap": 0, "padding": [12, 16],
+          "text": "자산 검색", "font": { "family": "Pretendard", "weight": 400, "size": 15, "letterSpacing": 0, "textCase": "ORIGINAL" }, "default_value": null },
+        { "name": "visibility", "component": "visibility-select", "fills": ["#f3f3f3"], "strokes": [], "radius": 9999, "shadows": [], "gap": 4, "padding": 4,
+          "text": null, "font": null, "default_value": "비공개" },
+        { "name": "visibility-active", "component": "segmented-control-active", "fills": ["#ffffff"], "strokes": [], "radius": 9999,
+          "shadows": [{ "y": 1, "blur": 2, "color": "rgba(0,0,0,0.08)" }], "gap": 0, "padding": [8, 16],
+          "text": "비공개", "font": { "family": "Pretendard", "weight": 600, "size": 12, "letterSpacing": 0, "textCase": "ORIGINAL" }, "default_value": null },
+        { "name": "asset-icon", "component": "app-icon-squircle", "fills": ["#f3f3f3"], "strokes": [], "radius": "30%", "shadows": [], "gap": 0, "padding": 0,
+          "text": null, "font": null, "default_value": null },
+        { "name": "badge", "component": "badge-popular", "fills": ["#0066ff"], "strokes": [], "radius": 9999, "shadows": [], "gap": 0, "padding": [4, 8],
+          "text": "허들링 픽 후보", "font": { "family": "Pretendard", "weight": 600, "size": 12, "letterSpacing": 0, "textCase": "ORIGINAL" }, "default_value": null },
+        { "name": "card", "component": "asset-card", "fills": ["#ffffff"], "strokes": ["#f0f0f0"], "radius": 24, "shadows": [], "gap": 16, "padding": 24,
+          "text": "QA 자동화 스킬 파일", "font": { "family": "Pretendard", "weight": 700, "size": 18, "letterSpacing": 0, "textCase": "ORIGINAL" }, "default_value": null }
+      ]
+    }
+  ]
+}
